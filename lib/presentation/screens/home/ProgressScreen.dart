@@ -19,10 +19,21 @@ class _ProgressScreenState extends State<ProgressScreen>
   final List<ProgressItem> items = [];
 
   @override
+  /// Initialize the state of the [_ProgressScreenState] class.
+  ///
+  /// This method is called when the widget is first created and inserted into
+  /// the tree. It initializes the [_animationController], [_progressTween], and
+  /// [_sortedItems] lists. After a 2-second delay, it adds some sample
+  /// [ProgressItem]s to the [_items] list and updates the UI. It also starts
+  /// the animation controller.
+  @override
   void initState() {
     super.initState();
+
+    // Delay the initialization of the [_items] list by 2 seconds
     Timer(const Duration(seconds: 2), () {
       setState(() {
+        // Add sample items to the [_items] list
         items.addAll([
           ProgressItem(
             color: Colors.red,
@@ -37,21 +48,28 @@ class _ProgressScreenState extends State<ProgressScreen>
             progress: 1,
           ),
         ]);
+
+        // Set the initial values for the [_progressTween] animation
         _progressTween = Tween<double>(begin: 0, end: 1);
       });
 
-
+      // Update the sorted items list
       _updateSortedItems();
-
     });
 
+    // Initialize the animation controller
     _animationController = AnimationController(
       duration: const Duration(seconds: 6),
       vsync: this,
     );
+
+    // Set the initial values for the [_progressTween] animation
     _progressTween = Tween<double>(begin: 0, end: 1);
+
+    // Update the sorted items list
     _updateSortedItems();
-    
+
+    // Start the animation controller
     _animationController.forward();
   }
 
@@ -61,19 +79,42 @@ class _ProgressScreenState extends State<ProgressScreen>
     super.dispose();
   }
 
+  /// Updates the sorted items list by clearing the current list and adding
+  /// all items from the [items] list. Then sorts the list in descending order
+  /// based on the progress of each item.
+  ///
+  /// This method is called when the state of the widget needs to be updated.
   void _updateSortedItems() {
+    // Clear the current sorted items list
     setState(() {
-      _sortedItems
-        ..clear()
-        ..addAll(items)
-        ..sort((a, b) => b.progress.compareTo(a.progress));
+      _sortedItems.clear();
+
+      // Add all items from the [items] list to the sorted items list
+      _sortedItems.addAll(items);
+
+      // Sort the sorted items list in descending order based on the progress
+      // of each item
+      _sortedItems.sort((a, b) => b.progress.compareTo(a.progress));
     });
   }
 
   @override
+  /// Updates the state of the widget when the widget is updated.
+  ///
+  /// Checks if there are any items that are not sorted and if so, updates the
+  /// sorted items list and starts the animation controller from the beginning.
+  @override
   void didUpdateWidget(covariant ProgressScreen oldWidget) {
+    // Call the parent class's didUpdateWidget method
     super.didUpdateWidget(oldWidget);
-    bool hasUnsortedItems = items.any((item) => !_sortedItems.contains(item));
+
+    // Check if there are any items that are not sorted
+    bool hasUnsortedItems = items.any(
+      (item) => !_sortedItems.contains(item),
+    );
+
+    // If there are unsortered items, update the sorted items list and start the
+    // animation controller from the beginning
     if (hasUnsortedItems) {
       _updateSortedItems();
       _animationController.forward(from: 0);

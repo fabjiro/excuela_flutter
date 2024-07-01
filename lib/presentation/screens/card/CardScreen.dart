@@ -1,5 +1,7 @@
+import 'package:excuela_flutter/presentation/blocs/card_screen/card_screen_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardScreen extends StatefulWidget {
   const CardScreen({super.key});
@@ -8,7 +10,8 @@ class CardScreen extends StatefulWidget {
   State<CardScreen> createState() => _CardScreenState();
 }
 
-class _CardScreenState extends State<CardScreen> with AutomaticKeepAliveClientMixin {
+class _CardScreenState extends State<CardScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -77,9 +80,18 @@ class _CardScreenState extends State<CardScreen> with AutomaticKeepAliveClientMi
                           ),
                           Row(
                             children: [
-                              IconButton(
-                                onPressed: () => null,
-                                icon: const Icon(Icons.thumb_up),
+                              BlocBuilder<CardScreenBloc, CardScreenState>(
+                                builder: (context, state) {
+                                  return Badge(
+                                    label: state.countLike > 0 ? Text(state.countLike.toString()) : null,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        context.read<CardScreenBloc>().add(const AddLike());
+                                      },
+                                      icon: const Icon(Icons.thumb_up),
+                                    ),
+                                  );
+                                },
                               ),
                               IconButton(
                                 onPressed: () => null,
