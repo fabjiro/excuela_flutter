@@ -1,5 +1,6 @@
 import 'package:excuela_flutter/presentation/screens/card/CardScreen.dart';
 import 'package:excuela_flutter/presentation/screens/home/ProgressScreen.dart';
+import 'package:excuela_flutter/presentation/screens/quiz/QuizScreen.dart';
 import 'package:excuela_flutter/presentation/widgets/customNavigationBar/CustomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -23,6 +24,7 @@ class _ShellScreenState extends State<ShellScreen> {
         children: const [
           ProgressScreen(),
           CardScreen(),
+          QuizScreen(),
         ],
       ),
       bottomNavigationBar: CustomNavigationBar(
