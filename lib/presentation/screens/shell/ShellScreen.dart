@@ -1,3 +1,4 @@
+import 'package:excuela_flutter/presentation/screens/card/CardScreen.dart';
 import 'package:excuela_flutter/presentation/screens/home/ProgressScreen.dart';
 import 'package:excuela_flutter/presentation/widgets/customNavigationBar/CustomNavigationBar.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _ShellScreenState extends State<ShellScreen> {
         physics: const NeverScrollableScrollPhysics(),
         children: const [
           ProgressScreen(),
+          CardScreen(),
         ],
       ),
       bottomNavigationBar: CustomNavigationBar(

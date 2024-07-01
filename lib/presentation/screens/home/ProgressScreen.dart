@@ -11,7 +11,7 @@ class ProgressScreen extends StatefulWidget {
 }
 
 class _ProgressScreenState extends State<ProgressScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late AnimationController _animationController;
   late Tween<double> _progressTween;
   final _sortedItems = <ProgressItem>[];
@@ -82,7 +82,7 @@ class _ProgressScreenState extends State<ProgressScreen>
 
   @override
   Widget build(BuildContext context) {
-    // super.build(context);
+    super.build(context);
 
     return Card(
       child: Padding(
@@ -118,8 +118,8 @@ class _ProgressScreenState extends State<ProgressScreen>
     );
   }
 
-  // @override
-  // bool get wantKeepAlive => true;
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class _ForegroundPainter extends CustomPainter {
